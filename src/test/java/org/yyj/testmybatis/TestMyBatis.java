@@ -16,7 +16,7 @@ import test.model.User;
 import test.service.IUserService;  
   
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
-@ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})   
+@ContextConfiguration(locations = {"classpath:spring-mybatis.xml"}) //设置要加载的配置文件 
 public class TestMyBatis {  
     private static Logger logger = Logger.getLogger(TestMyBatis.class);  
     @Resource  

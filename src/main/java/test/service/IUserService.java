@@ -4,4 +4,5 @@ import test.model.User;
   
 public interface IUserService {  
      User getUserById(int userId);  
+     User getUserByName(String name);
 }  

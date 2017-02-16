@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>登陆失败，请检查你的 用户名和密码是否错误</h1>
-<a href="/blog2/user/index">返回登录页面</a>
+<h1>登陆失败，请检查你的 账号和密码是否错误</h1>
+<a href="/blog2/blogger/index">返回登录页面</a>
 </body>
 </html>

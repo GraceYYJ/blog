@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="myblog.dao.BloggerMapper" >
+  <resultMap id="BaseResultMap" type="myblog.model.Blogger" >
+    <id column="bloggerid" property="bloggerid" jdbcType="VARCHAR" />
+    <result column="bloggername" property="bloggername" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bloggerid, bloggername, password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_blogger
+    where bloggerid = #{bloggerid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_blogger
+    where bloggerid = #{bloggerid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="myblog.model.Blogger" >
+    insert into t_blogger (bloggerid, bloggername, password
+      )
+    values (#{bloggerid,jdbcType=VARCHAR}, #{bloggername,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="myblog.model.Blogger" >
+    insert into t_blogger
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bloggerid != null" >
+        bloggerid,
+      </if>
+      <if test="bloggername != null" >
+        bloggername,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bloggerid != null" >
+        #{bloggerid,jdbcType=VARCHAR},
+      </if>
+      <if test="bloggername != null" >
+        #{bloggername,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="myblog.model.Blogger" >
+    update t_blogger
+    <set >
+      <if test="bloggername != null" >
+        bloggername = #{bloggername,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bloggerid = #{bloggerid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="myblog.model.Blogger" >
+    update t_blogger
+    set bloggername = #{bloggername,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where bloggerid = #{bloggerid,jdbcType=VARCHAR}
+  </update>
+</mapper>

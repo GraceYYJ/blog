@@ -6,6 +6,6 @@
   </head>  
     
   <body>       
-    ${user.userName}  
+    ${blogger.bloggername}  
   </body>  
 </html>  

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="myblog.dao.BlogtypeMapper" >
+  <resultMap id="BaseResultMap" type="myblog.model.Blogtype" >
+    <id column="typeid" property="typeid" jdbcType="INTEGER" />
+    <result column="articletype" property="articletype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    typeid, articletype
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_blogtype
+    where typeid = #{typeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_blogtype
+    where typeid = #{typeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="myblog.model.Blogtype" >
+    insert into t_blogtype (typeid, articletype)
+    values (#{typeid,jdbcType=INTEGER}, #{articletype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="myblog.model.Blogtype" >
+    insert into t_blogtype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        typeid,
+      </if>
+      <if test="articletype != null" >
+        articletype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="articletype != null" >
+        #{articletype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="myblog.model.Blogtype" >
+    update t_blogtype
+    <set >
+      <if test="articletype != null" >
+        articletype = #{articletype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where typeid = #{typeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="myblog.model.Blogtype" >
+    update t_blogtype
+    set articletype = #{articletype,jdbcType=VARCHAR}
+    where typeid = #{typeid,jdbcType=INTEGER}
+  </update>
+</mapper>

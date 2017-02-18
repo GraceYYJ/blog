@@ -1,6 +1,7 @@
 package myblog.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import myblog.model.Blog;
 import myblog.model.Blogger;
 import myblog.service.BloggerService;
 
@@ -57,6 +59,34 @@ public class BloggerController {
 			url = "faillogin";
 		}
 		ModelAndView view = new ModelAndView(url);
+		return view;
+	}
+	
+	@RequestMapping("/writeblog")
+	public ModelAndView writeblog(HttpServletRequest request, Model model) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String blogtitle=request.getParameter("title");
+		String blogtype=request.getParameter("type");
+		String blogbody=request.getParameter("inputbox");
+		String blogbodyutf8="";
+		Date now = new Date();
+		try {
+			blogbodyutf8 = new String(blogbody.getBytes("iso-8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		if(blogtitle!=null&&blogtype!=null){
+			Blog blog=new Blog();
+			blog.setTitle(blogtitle);
+			blog.setArticletype(blogtype);
+			blog.setArticlebody(blogbodyutf8);
+			blog.setPubtime(now);
+		}
+		ModelAndView view = new ModelAndView("blogdetail");
 		return view;
 	}
 }

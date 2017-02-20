@@ -17,10 +17,11 @@ body{
 <h3>写博客</h3>
 <body style="text-align: center">
 	<div>
-		<form action="/blog2/blogger/writeblog">
-			<input type="text" name="title"><br>
-			<input type="text" name="type"><br>
-			<input type="text" width="300px" height="200px" name="inputbox"><br>
+		<form action="/blog2/blogger/write">
+			文章题目：<input type="text" name="title"><br>
+			文章类型：<input type="text" name="type"><br>
+			正文：<br>
+			<input type="text" style="height:800px;width:500px" name="inputbox"><br>
 			<button type="submit">提交</button>
 		</form>
 	</div>

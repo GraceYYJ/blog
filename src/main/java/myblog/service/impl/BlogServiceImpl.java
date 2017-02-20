@@ -1,6 +1,7 @@
 package myblog.service.impl;  
   
 import javax.annotation.Resource;  
+import java.util.List;
   
 import org.springframework.stereotype.Service;  
   
@@ -21,5 +22,8 @@ public class BlogServiceImpl implements BlogService {
     public int insertBlog(Blog blog){
 		return blogDao.insert(blog);
     }
-   
+    @Override
+	public List getAllBlog() {
+		return blogDao.getAllBlog();
+	}
 }  

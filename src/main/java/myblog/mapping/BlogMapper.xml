@@ -1,107 +1,122 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="myblog.dao.BlogMapper" >
-  <resultMap id="BaseResultMap" type="myblog.model.Blog" >
-    <id column="blogid" property="blogid" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="articletype" property="articletype" jdbcType="VARCHAR" />
-    <result column="pubtime" property="pubtime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="myblog.model.Blog" extends="BaseResultMap" >
-    <result column="articlebody" property="articlebody" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    blogid, title, articletype, pubtime
-  </sql>
-  <sql id="Blob_Column_List" >
-    articlebody
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_blog
-    where blogid = #{blogid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_blog
-    where blogid = #{blogid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="myblog.model.Blog" >
-    insert into t_blog (blogid, title, articletype, 
-      pubtime, articlebody)
-    values (#{blogid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{articletype,jdbcType=VARCHAR}, 
-      #{pubtime,jdbcType=TIMESTAMP}, #{articlebody,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="myblog.model.Blog" >
-    insert into t_blog
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="blogid != null" >
-        blogid,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="articletype != null" >
-        articletype,
-      </if>
-      <if test="pubtime != null" >
-        pubtime,
-      </if>
-      <if test="articlebody != null" >
-        articlebody,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="blogid != null" >
-        #{blogid,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="articletype != null" >
-        #{articletype,jdbcType=VARCHAR},
-      </if>
-      <if test="pubtime != null" >
-        #{pubtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="articlebody != null" >
-        #{articlebody,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="myblog.model.Blog" >
-    update t_blog
-    <set >
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="articletype != null" >
-        articletype = #{articletype,jdbcType=VARCHAR},
-      </if>
-      <if test="pubtime != null" >
-        pubtime = #{pubtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="articlebody != null" >
-        articlebody = #{articlebody,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where blogid = #{blogid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="myblog.model.Blog" >
-    update t_blog
-    set title = #{title,jdbcType=VARCHAR},
-      articletype = #{articletype,jdbcType=VARCHAR},
-      pubtime = #{pubtime,jdbcType=TIMESTAMP},
-      articlebody = #{articlebody,jdbcType=LONGVARCHAR}
-    where blogid = #{blogid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="myblog.model.Blog" >
-    update t_blog
-    set title = #{title,jdbcType=VARCHAR},
-      articletype = #{articletype,jdbcType=VARCHAR},
-      pubtime = #{pubtime,jdbcType=TIMESTAMP}
-    where blogid = #{blogid,jdbcType=INTEGER}
-  </update>
+<mapper namespace="myblog.dao.BlogMapper">
+	<resultMap id="BaseResultMap" type="myblog.model.Blog">
+		<id column="blogid" property="blogid" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="articletype" property="articletype" jdbcType="VARCHAR" />
+		<result column="pubtime" property="pubtime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="myblog.model.Blog"
+		extends="BaseResultMap">
+		<result column="articlebody" property="articlebody" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		blogid, title, articletype, pubtime
+	</sql>
+	<sql id="Blob_Column_List">
+		articlebody
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_blog
+		where blogid = #{blogid,jdbcType=INTEGER}
+	</select>
+
+	<select id="getAllBlog" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		from t_blog
+<!-- 		where id in -->
+<!-- 		<foreach collection="blogids" item="blogid" open="(" close=")" separator=",">#{blogid}</foreach> -->
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_blog
+		where blogid = #{blogid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="blogid"
+		parameterType="myblog.model.Blog">
+		insert into t_blog (blogid, title, articletype,
+		pubtime, articlebody)
+		values (#{blogid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+		#{articletype,jdbcType=VARCHAR},
+		#{pubtime,jdbcType=TIMESTAMP}, #{articlebody,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="myblog.model.Blog">
+		insert into t_blog
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="blogid != null">
+				blogid,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="articletype != null">
+				articletype,
+			</if>
+			<if test="pubtime != null">
+				pubtime,
+			</if>
+			<if test="articlebody != null">
+				articlebody,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="blogid != null">
+				#{blogid,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="articletype != null">
+				#{articletype,jdbcType=VARCHAR},
+			</if>
+			<if test="pubtime != null">
+				#{pubtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="articlebody != null">
+				#{articlebody,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="myblog.model.Blog">
+		update t_blog
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="articletype != null">
+				articletype = #{articletype,jdbcType=VARCHAR},
+			</if>
+			<if test="pubtime != null">
+				pubtime = #{pubtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="articlebody != null">
+				articlebody = #{articlebody,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where blogid = #{blogid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="myblog.model.Blog">
+		update t_blog
+		set title = #{title,jdbcType=VARCHAR},
+		articletype = #{articletype,jdbcType=VARCHAR},
+		pubtime = #{pubtime,jdbcType=TIMESTAMP},
+		articlebody = #{articlebody,jdbcType=LONGVARCHAR}
+		where blogid = #{blogid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="myblog.model.Blog">
+		update t_blog
+		set title = #{title,jdbcType=VARCHAR},
+		articletype = #{articletype,jdbcType=VARCHAR},
+		pubtime = #{pubtime,jdbcType=TIMESTAMP}
+		where blogid = #{blogid,jdbcType=INTEGER}
+	</update>
 </mapper>

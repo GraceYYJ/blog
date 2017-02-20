@@ -1,6 +1,7 @@
 package myblog.dao;
 
 import myblog.model.Blog;
+import java.util.List;
 
 public interface BlogMapper {
     int deleteByPrimaryKey(Integer blogid);
@@ -10,7 +11,9 @@ public interface BlogMapper {
     int insertSelective(Blog record);
 
     Blog selectByPrimaryKey(Integer blogid);
-
+    
+    List<Blog> getAllBlog();//getAllBlog
+    
     int updateByPrimaryKeySelective(Blog record);
 
     int updateByPrimaryKeyWithBLOBs(Blog record);

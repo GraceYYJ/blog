@@ -17,10 +17,11 @@ body {
 <h3>写博客</h3>
 <body style="text-align: center">
 	<div>
-		<div class="title">${blog.title}</div>
-		<div class="type">${type}</div>
-		<div class="blog_content">${blog.inputbox}</div>
 		<font style="color: #8B2323">作者：楊玉娟&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尊重博主原创文章，转载请注明文章出于此处。</font>
+		<div class="title">${blog.title}</div>
+		<div class="type">${blog.articletype}</div>
+		<br>
+		<div class="blog_content">${blog.articlebody}</div>
 	</div>
 </body>
 </html>

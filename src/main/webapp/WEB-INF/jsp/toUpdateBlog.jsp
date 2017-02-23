@@ -23,8 +23,7 @@ body {
 			文章题目：<input type="text" style="width: 300px"  name="title" value="${blog.title}"><br>
 			文章类型：<input type="text" style="width: 300px"  name="type" value="${blog.articletype}"><br>
 			正文：<br>
-				   <input type="text" style="height: 600px; width: 600px"
-				name="inputbox" value=${blog.articlebody}><br>
+			<textarea type="text" rows="2" cols="3" style="height:600px;width:600px;word-wrap:break-word; word-break:break-all;" name="inputbox" wrap="physical">${blog.articlebody}</textarea><br>
 			<button type="submit">提交</button>
 		</form>
 	</div>

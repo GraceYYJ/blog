@@ -84,7 +84,7 @@ public class BloggerController {
 	@RequestMapping("/tolist")
 	public ModelAndView tolist(HttpServletRequest request) {
 		int blogid = Integer.parseInt(request.getParameter("blogid"));
-		ModelAndView view = new ModelAndView("blogdetail?id="+blogid);// 将index映射到login.jsp
+		ModelAndView view = new ModelAndView("blogdetail.jsp?id="+blogid);// 将index映射到login.jsp
 		return view;
 	}
 

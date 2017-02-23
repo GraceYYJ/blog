@@ -29,8 +29,11 @@
 				<td>${item.blogid}</td>
 				
 				<td>
+
 				<a name="blogid" value="${item.blogid}" href="/blog2/blogger/tolist">${item.title}</a>
+				
 				</td>
+				
 				<td>${item.articletype}</td>
 				
 				<td>

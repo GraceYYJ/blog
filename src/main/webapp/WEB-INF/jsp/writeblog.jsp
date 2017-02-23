@@ -18,10 +18,10 @@ body{
 <body style="text-align: center">
 	<div>
 		<form action="/blog2/blogger/write">
-			文章题目：<input type="text" name="title"><br>
-			文章类型：<input type="text" name="type"><br>
+			文章题目：<input type="text" style="width: 300px" name="title"><br>
+			文章类型：<input type="text" style="width: 300px" name="type"><br>
 			正文：<br>
-			<input type="text" style="height:800px;width:500px" name="inputbox"><br>
+			<textarea type="text" rows="2" cols="3" style="height:600px;width:600px;word-wrap:break-word; word-break:break-all;" name="inputbox" wrap="physical"></textarea><br>
 			<button type="submit">提交</button>
 		</form>
 	</div>

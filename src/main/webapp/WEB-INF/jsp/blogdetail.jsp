@@ -13,15 +13,18 @@ body {
 	font-family: san-serif
 }
 </style>
+
 </head>
 <h3>写博客</h3>
 <body style="text-align: center">
 	<div>
 		<font style="color: #8B2323">作者：楊玉娟&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尊重博主原创文章，转载请注明文章出于此处。</font>
-		<div class="title">${blog.title}</div>
-		<div class="type">${blog.articletype}</div>
+		<div class="title">博客题目：${blog.title}</div>
+		<div class="type">博客类型：${blog.articletype}</div>
+		<br>【正文】<br>
 		<br>
 		<div class="blog_content">${blog.articlebody}</div>
 	</div>
+	<a href="/blog2/blogger/getAllBlog"><button>返回博客列表</button></a>	
 </body>
 </html>

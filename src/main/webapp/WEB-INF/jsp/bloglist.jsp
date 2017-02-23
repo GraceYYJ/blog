@@ -12,9 +12,11 @@
 <title>博客列表</title>
 </head>
 
-<h2>博客列表</h2>
 <body style="text-align: center">
-	<table border=1 width="200" align="center" style="text-align: center">
+<h2>博客列表</h2>
+	<a href="/blog2/blogger/toWrite"><button>添加博客</button></a>	
+	<a href="/blog2/blogger/index"><button>返回登陆页面</button></a>		
+	<table border=1 width="700px" align="center" style="text-align: center">
 		<tr>
 			<th>博客编号</th>
 			<th>博客题目</th>
@@ -25,8 +27,25 @@
 		<c:forEach var="item" items="${blogs}">
 			<tr>
 				<td>${item.blogid}</td>
-				<td>${item.title}</td>
+				
+				<td>
+				<a name="blogid" value="${item.blogid}" href="/blog2/blogger/tolist">${item.title}</a>
+				</td>
 				<td>${item.articletype}</td>
+				
+				<td>
+				<form action = "/blog2/blogger/toUpdateBlog">
+				<input type="hidden" name="id" value="${item.blogid}">
+				<input type ="submit" value = "修改">
+				</form>
+				</td>
+				
+				<td>
+				<form action = "/blog2/blogger/delBlog">
+				<input type="hidden" name="id" value="${item.blogid}">
+				<input type = "submit" value = "删除">
+				</form>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

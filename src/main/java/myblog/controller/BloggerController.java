@@ -68,23 +68,26 @@ public class BloggerController {
 		String url = "login";
 		// 得到的blogger不是空值并且接收到的pwd和blogger.getPassword相等
 		if (blogger != null && pwd.equals(blogger.getPassword())) {
-			url="redirect:/blogger/getAllBlog";
+			url = "redirect:/blogger/getAllBlog";
 		} else {
 			url = "faillogin";
 		}
 		ModelAndView view = new ModelAndView(url);
 		return view;
 	}
-	
+
 	@RequestMapping("/toWrite")
 	public ModelAndView toWrite(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView("writeblog");// 将index映射到login.jsp
 		return view;
 	}
+
 	@RequestMapping("/tolist")
-	public ModelAndView tolist(HttpServletRequest request) {
+	public ModelAndView tolist(HttpServletRequest request, Model model) {
 		int blogid = Integer.parseInt(request.getParameter("blogid"));
-		ModelAndView view = new ModelAndView("blogdetail.jsp?id="+blogid);// 将index映射到login.jsp
+		Blog blog = blogMapper.selectByPrimaryKey(blogid);
+		model.addAttribute("blog", blog);
+		ModelAndView view = new ModelAndView("blogdetail");// 将index映射到login.jsp
 		return view;
 	}
 
@@ -105,20 +108,20 @@ public class BloggerController {
 		String blogbodyutf8 = "";
 		Date now = new Date();
 		// 字符串转码
-		try {
-			blogtitleutf8 = new String(blogtitle.getBytes("iso-8859-1"), "utf-8");
-			blogtypeutf8 = new String(blogtype.getBytes("iso-8859-1"), "utf-8");
-			blogbodyutf8 = new String(blogbody.getBytes("iso-8859-1"), "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			blogtitleutf8 = new String(blogtitle.getBytes("iso-8859-1"), "utf-8");
+//			blogtypeutf8 = new String(blogtype.getBytes("iso-8859-1"), "utf-8");
+//			blogbodyutf8 = new String(blogbody.getBytes("iso-8859-1"), "utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 
 		Blog blog = new Blog();// new一个blog的model（对应Blog.model中定义的blog对象），model可看为对应数据库的模型
 		if (blogtitle != null && blogtype != null) {
 			// 利用Blog模型对应的set方法为blog对象赋值
-			blog.setTitle(blogtitleutf8);
-			blog.setArticletype(blogtypeutf8);
-			blog.setArticlebody(blogbodyutf8);
+			blog.setTitle(blogtitle);
+			blog.setArticletype(blogtype);
+			blog.setArticlebody(blogbody);
 			blog.setPubtime(now);
 			// blogMapper对应数据库的增删改查操作，利用insert方法将blog对象的值对应插入到数据库中
 			blogMapper.insert(blog);
@@ -143,8 +146,9 @@ public class BloggerController {
 	@RequestMapping("/toUpdateBlog")
 	public ModelAndView toUpdateBlog(HttpServletRequest request, Model model) {
 		int blogid = Integer.parseInt(request.getParameter("id"));
-		//String blogid = request.getParameter("id");// 接收id（通过页面输入框的name=id接收到）
-		//String blogidutf8 = "";// 定义utf8编码的id
+		// String blogid = request.getParameter("id");//
+		// 接收id（通过页面输入框的name=id接收到）
+		// String blogidutf8 = "";// 定义utf8编码的id
 		// bloggerid.getBytes("iso-8859-1"), "utf-8":将bloggerid转为utf-8类型编码的
 		Blog blog = this.blogService.getBlogById(blogid);
 		ModelAndView modelAndView = new ModelAndView();
@@ -152,6 +156,7 @@ public class BloggerController {
 		modelAndView.addObject("blog", blog);
 		return modelAndView;
 	}
+
 	@RequestMapping("/UpdateBlog")
 	public ModelAndView UpdateBlog(HttpServletRequest request, Model model) {
 		try {
@@ -192,13 +197,14 @@ public class BloggerController {
 		ModelAndView view = new ModelAndView("blogdetail.jsp?id=" + blog.getBlogid());// 页面链接传参
 		return view;
 	}
+
 	@RequestMapping("/delBlog")
-	public ModelAndView delBlog(HttpServletRequest request, Model model){
+	public ModelAndView delBlog(HttpServletRequest request, Model model) {
 		int blogid = Integer.parseInt(request.getParameter("id"));
 		blogMapper.deleteByPrimaryKey(blogid);
-		String url="redirect:/blogger/getAllBlog";
+		String url = "redirect:/blogger/getAllBlog";
 		ModelAndView view = new ModelAndView(url);
-		return view;	
+		return view;
 	}
-	
+
 }

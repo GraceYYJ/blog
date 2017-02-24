@@ -17,7 +17,7 @@ body{
 <h3>写博客</h3>
 <body style="text-align: center">
 	<div>
-		<form action="/blog2/blogger/write">
+		<form method = 'post' action="/blog2/blogger/write">
 			文章题目：<input type="text" style="width: 300px" name="title"><br>
 			文章类型：<input type="text" style="width: 300px" name="type"><br>
 			正文：<br>

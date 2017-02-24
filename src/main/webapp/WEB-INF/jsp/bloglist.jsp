@@ -30,7 +30,7 @@
 				
 				<td>
 
-				<a name="blogid" value="${item.blogid}" href="/blog2/blogger/tolist">${item.title}</a>
+				<a name="blogid" href="/blog2/blogger/tolist?blogid=${item.blogid}">${item.title}</a>
 				
 				</td>
 				
@@ -46,7 +46,7 @@
 				<td>
 				<form action = "/blog2/blogger/delBlog">
 				<input type="hidden" name="id" value="${item.blogid}">
-				<input type = "submit" value = "删除">
+				<input type = "submit" onclick="return confirm('你确定要删除你的宝贝文文吗？')" value = "删除">
 				</form>
 				</td>
 			</tr>
